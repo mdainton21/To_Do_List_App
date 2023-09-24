@@ -4,12 +4,12 @@ function newItem() {
     let list = $('#list');
     let li = $('<li></li>');
 
-    // translating the input into a list item
+    //1.1. translating the input into a list item
     let inputValue = $('#input').val();
     li.append(inputValue);
 
 
-    // Checking for text in the input space
+    // 1.2. Checking for text in the input space
     if (inputValue === '') {
         alert("You must write something!");
     } else {
@@ -18,19 +18,21 @@ function newItem() {
 
     //2. Crossing out an item from the list of items:
     li.on("dblclick", function() {
-        li.addClass("strike");
+        li.toggleClass("strike");
     });
 
-    //3(i). Adding the delete button "X": 
-    let crossOutButton = document.createElement("crossOutButton");
-    crossOutButton.appendChild(document.createTextNode("X"));
-    li.appendChild(crossOutButton);
+    //3. Adding the delete button "X": 
+    let deleteButton = $('<deletebutton></deletebutton>');
+    deleteButton.append(document.createTextNode("X"));
+    li.append(deleteButton);
 
-    crossOutButton.addEventListener("click", deleteListItem);
-    //3(ii). Adding CLASS DELETE (DISPLAY: NONE) from the css:
+    // 3.2. Calling the function to remove the list item
+    deleteButton.on("click", deleteListItem);
+    //3.3 Adding CLASS DELETE (DISPLAY: NONE) from the css:
     function deleteListItem() {
-        li.classList.add("delete")
+        li.addClass("delete");
     }
+
     // 4. Reordering the items: 
     $('#list').sortable();
 
